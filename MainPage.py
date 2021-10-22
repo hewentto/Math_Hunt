@@ -36,6 +36,8 @@ yellow=(255, 255, 0)
 # Game Fonts
 font = "Retro.ttf"
 
+# Background image
+background_image = pygame.image.load("background.png").convert()
 
 # Game Framerate
 clock = pygame.time.Clock()
@@ -65,7 +67,8 @@ def main_menu():
                         quit()
 
         # Main Menu UI
-        screen.fill(blue)
+        
+        screen.blit(background_image, [0,0])
         title=text_format("Math Hunt", font, 90, yellow)
         if selected ==  "start":
             text_start=text_format("START", font, 75, white)
