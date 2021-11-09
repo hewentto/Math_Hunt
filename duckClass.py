@@ -24,15 +24,14 @@ class duck:
             self.vy = random.randrange(1, 3, 1)
         self.color = yellow
         self.size = [(pygame.font.SysFont('microsoftjhengheimicrosoftjhengheiuibold', 20).size(self.equation)[0]),
-                        (pygame.font.SysFont('microsoftjhengheimicrosoftjhengheiuibold', 20).size(self.eequation)[1])]
+                        (pygame.font.SysFont('microsoftjhengheimicrosoftjhengheiuibold', 20).size(self.equation)[1])]
         self.hitbox = pygame.Rect(
             self.x, self.y, self.size[0], self.size[1])
 
     def draw(self):
-        renderText = pygame.font.SysFont(
-            'microsoftjhengheimicrosoftjhengheiuibold', 20).render(self.equation, True, self.color)
+        renderText = pygame.font.SysFont(font, 20).render(self.equation, True, self.color)
         self.screen.blit(renderText, (self.x, self.y))
-        # pygame.draw.rect(self.screen, (255, 255, 255), self.hitbox, 1)
+        #pygame.draw.rect(self.screen, (255, 255, 255), self.hitbox, 1)
 
     def mover(self):
         self.x += self.vx

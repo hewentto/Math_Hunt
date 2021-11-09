@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
+import duckClass as Duck
 
 pygame.init()
 
@@ -34,29 +35,36 @@ font = "Retro.ttf"
 title = text_format("Score:", font, 50, yellow)
 
 title_rect = title.get_rect()
-main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager)
-duck1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 70), (50, 50)), text='Duck', manager=manager)
-duck2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 200), (50, 50)), text='Duck', manager=manager)      
-duck3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((500, 100), (50, 50)), text='Duck', manager=manager) 
-duck4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 70), (50, 50)), text='Goose', manager=manager)                  
+main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager)            
 
 # Background image
 background_image = pygame.image.load("background.png").convert()
+
+
+#duck
+duck5 = Duck.duck("test",window_surface)
 
 clock = pygame.time.Clock()
 is_running = True
 
 while is_running:
+    window_surface.blit(background_image, [0, 0])
+
+
     time_delta = clock.tick(60)/1000.0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_running = False
 
+    
     manager.process_events(event)
 
     manager.update(time_delta)
 
-    window_surface.blit(background_image, [0, 0])
+    
+    
+    duck5.draw()
+    duck5.mover()
     window_surface.blit(title, (650, 10))
     manager.draw_ui(window_surface)
 
