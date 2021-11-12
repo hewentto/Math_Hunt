@@ -17,7 +17,7 @@ c = conn.cursor()
 # )""")
 
 #Query the Database
-c.execute("SELECT rowid, * FROM addition")
+c.execute("SELECT rowid, * FROM division")
 items = c.fetchall()
 
 for item in items:

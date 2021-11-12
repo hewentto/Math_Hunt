@@ -33,16 +33,21 @@ def text_format(message, textFont, textSize, textColor):
 font = "Retro.ttf"
 
 title = text_format("Score:", font, 50, yellow)
+problem = text_format("", font, 90, black)
 
 title_rect = title.get_rect()
-main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager)            
+problem_rect = problem.get_rect()
+
+main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager) 
 
 # Background image
 background_image = pygame.image.load("background.png").convert()
 
-
 #duck
-duck5 = Duck.duck("test",window_surface)
+duck1 = Duck.duck("test",window_surface)
+duck2 = Duck.duck("test",window_surface)
+duck3 = Duck.duck("test",window_surface)
+duck4 = Duck.duck("test",window_surface)
 
 clock = pygame.time.Clock()
 is_running = True
@@ -63,9 +68,16 @@ while is_running:
 
     
     
-    duck5.draw()
-    duck5.mover()
+    duck1.draw()
+    duck1.mover()
+    duck2.draw()
+    duck2.mover()
+    duck3.draw()
+    duck3.mover()
+    duck4.draw()
+    duck4.mover()
     window_surface.blit(title, (650, 10))
+    window_surface.blit(problem, (300, 500 ))
     manager.draw_ui(window_surface)
 
     pygame.display.update()
