@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 from pygame.locals import *
 
-class LevlSelect:
+class LevelSelect:
     pygame.init()
 
     width = 900
