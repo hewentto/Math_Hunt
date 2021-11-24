@@ -7,10 +7,12 @@ import time
 font = "Retro.ttf"
 yellow = (255, 255, 0)
 class duck:
+
+    duckPairs = [('\brownleft.png','/brownright.png'),('\whiteleft.png','\whiteright.png'),()))]
     def __init__(self, equation, screen):
 
         # this is where the duck right and duck left sprite will be
-
+        self.sprite = pygame.image.load('images\yellowleft.png')
         self.equation = equation
         self.screen = screen
         # creates a random position for x and y within the screen range for the object
@@ -32,7 +34,9 @@ class duck:
 
     def draw(self):
         renderText = pygame.font.SysFont(font, 20).render(self.equation, True, self.color)
+        self.screen.blit(self.sprite, (self.x,self.y +5))
         self.screen.blit(renderText, (self.x, self.y))
+
         #pygame.draw.rect(self.screen, (255, 255, 255), self.hitbox, 1)
 
     def mover(self):
