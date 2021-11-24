@@ -2,6 +2,8 @@ import pygame
 import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
+import equations as dic
+window_surface = pygame.display.set_mode((900, 600))
 
 class Game:
     pygame.init()
@@ -19,7 +21,7 @@ class Game:
     yellow=(255, 255, 0)
 
     pygame.display.set_caption('Math Hunt')
-    window_surface = pygame.display.set_mode((width, height))
+    
 
     background = pygame.Surface((width, height))
     background.fill(pygame.Color('#000000'))
@@ -45,10 +47,7 @@ class Game:
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    duck1 = Duck.duck("test",window_surface)
-    duck2 = Duck.duck("test",window_surface)
-    duck3 = Duck.duck("test",window_surface)
-    duck4 = Duck.duck("test",window_surface)
+    allDucks = [Duck.duck(i,window_surface) for i in dic.adddict]
 
     clock = pygame.time.Clock()
     is_running = True
@@ -67,16 +66,9 @@ class Game:
 
         manager.update(time_delta)
 
-        
-        
-        duck1.draw()
-        duck1.mover()
-        duck2.draw()
-        duck2.mover()
-        duck3.draw()
-        duck3.mover()
-        duck4.draw()
-        duck4.mover()
+        for k in range(len(allDucks)):
+            allDucks[k].draw()
+            allDucks[k].mover()
         window_surface.blit(title, (650, 10))
         window_surface.blit(problem, (300, 500 ))
         manager.draw_ui(window_surface)

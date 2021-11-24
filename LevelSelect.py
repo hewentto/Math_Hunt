@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 from pygame.locals import *
 
-class LevelSelect:
+class LevelSelect():
     pygame.init()
 
     width = 900
@@ -35,10 +35,10 @@ class LevelSelect:
     title = text_format("Select Level", font, 90, yellow)
 
     title_rect = title.get_rect()
-    level1_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4), (100, 50)), text='Level1', manager=manager)
-    level2_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 80), (100, 50)), text='Level2', manager=manager)
-    level3_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 160), (100, 50)), text='Level3', manager=manager)
-    level4_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 240), (100, 50)), text='Level4', manager=manager)
+    addition_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4), (100, 50)), text='Addition', manager=manager)
+    subtraction_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 80), (100, 50)), text='Subtraction', manager=manager)
+    multiplication_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 160), (100, 50)), text='Multiplication', manager=manager)
+    division_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 240), (100, 50)), text='Division', manager=manager)
 
                                                 
 
@@ -53,6 +53,17 @@ class LevelSelect:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
+            if event.type == USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == addition_button:
+                        print('Addition')
+                    if event.ui_element == subtraction_button:
+                        print('Addition')
+                    if event.ui_element == multiplication_button:
+                        print('Addition')
+                    if event.ui_element == division_button:
+                        print('Addition')
+            
 
         manager.process_events(event)
 
