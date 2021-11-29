@@ -3,9 +3,7 @@ import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
 import equations as dic
-window_surface = pygame.display.set_mode((900, 600))
-
-class Game:
+def Game(window_surface):
     pygame.init()
 
     width = 900
@@ -26,7 +24,7 @@ class Game:
     background = pygame.Surface((width, height))
     background.fill(pygame.Color('#000000'))
 
-    manager = pygame_gui.UIManager((width, height))
+    game_manager = pygame_gui.UIManager((width, height))
 
     def text_format(message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
@@ -41,8 +39,10 @@ class Game:
     title_rect = title.get_rect()
     problem_rect = problem.get_rect()
 
-    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager) 
+    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
 
+    active_problem = ""
+    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_problem, manager=game_manager) 
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
@@ -62,15 +62,17 @@ class Game:
                 is_running = False
 
         
-        manager.process_events(event)
+        game_manager.process_events(event)
 
-        manager.update(time_delta)
+        game_manager.update(time_delta)
 
         for k in range(len(allDucks)):
             allDucks[k].draw()
             allDucks[k].mover()
+        for problem in dic.adddict:
+            active_problem = dic.adddict.get(problem)
         window_surface.blit(title, (650, 10))
         window_surface.blit(problem, (300, 500 ))
-        manager.draw_ui(window_surface)
+        game_manager.draw_ui(window_surface)
 
         pygame.display.update()
