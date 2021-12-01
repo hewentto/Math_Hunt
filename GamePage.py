@@ -2,8 +2,8 @@ import pygame
 import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
-
-class Game:
+import equations as dic
+def Game(window_surface):
     pygame.init()
 
     width = 900
@@ -19,12 +19,12 @@ class Game:
     yellow=(255, 255, 0)
 
     pygame.display.set_caption('Math Hunt')
-    window_surface = pygame.display.set_mode((width, height))
+    
 
     background = pygame.Surface((width, height))
     background.fill(pygame.Color('#000000'))
 
-    manager = pygame_gui.UIManager((width, height))
+    game_manager = pygame_gui.UIManager((width, height))
 
     def text_format(message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
@@ -39,16 +39,15 @@ class Game:
     title_rect = title.get_rect()
     problem_rect = problem.get_rect()
 
-    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=manager) 
+    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
 
+    active_problem = ""
+    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_problem, manager=game_manager) 
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    duck1 = Duck.duck("test",window_surface)
-    duck2 = Duck.duck("test",window_surface)
-    duck3 = Duck.duck("test",window_surface)
-    duck4 = Duck.duck("test",window_surface)
+    allDucks = [Duck.duck(i,window_surface) for i in dic.adddict]
 
     clock = pygame.time.Clock()
     is_running = True
@@ -63,22 +62,18 @@ class Game:
                 is_running = False
 
         
-        manager.process_events(event)
+            game_manager.process_events(event)
 
-        manager.update(time_delta)
+            game_manager.update(time_delta)
 
-        
-        
-        duck1.draw()
-        duck1.mover()
-        duck2.draw()
-        duck2.mover()
-        duck3.draw()
-        duck3.mover()
-        duck4.draw()
-        duck4.mover()
+        for k in range(len(allDucks)):
+            allDucks[k].draw()
+            allDucks[k].mover()
+        for problem in dic.adddict:
+            active_problem = dic.adddict.get(problem)
+            
         window_surface.blit(title, (650, 10))
         window_surface.blit(problem, (300, 500 ))
-        manager.draw_ui(window_surface)
+        game_manager.draw_ui(window_surface)
 
         pygame.display.update()
