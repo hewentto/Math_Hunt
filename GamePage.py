@@ -62,15 +62,16 @@ def Game(window_surface):
                 is_running = False
 
         
-        game_manager.process_events(event)
+            game_manager.process_events(event)
 
-        game_manager.update(time_delta)
+            game_manager.update(time_delta)
 
         for k in range(len(allDucks)):
             allDucks[k].draw()
             allDucks[k].mover()
         for problem in dic.adddict:
             active_problem = dic.adddict.get(problem)
+            
         window_surface.blit(title, (650, 10))
         window_surface.blit(problem, (300, 500 ))
         game_manager.draw_ui(window_surface)

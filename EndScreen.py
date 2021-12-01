@@ -1,8 +1,9 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
+import GamePage as game
 
-class End:
+def endScreen(window_surface):
     pygame.init()
 
     width = 900
@@ -23,7 +24,7 @@ class End:
     background = pygame.Surface((width, height))
     background.fill(pygame.Color('#000000'))
 
-    manager = pygame_gui.UIManager((width, height))
+    end_manager = pygame_gui.UIManager((width, height))
 
     def text_format(message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
@@ -38,7 +39,7 @@ class End:
 
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 545), (150, 50)),
                                                 text='Play Again',
-                                                manager=manager)
+                                                manager=end_manager)
 
     yourScore = text_format("Your Score", font, 40, yellow)
     yourScore_rect = yourScore.get_rect()
@@ -61,14 +62,14 @@ class End:
             if event.type == pygame.QUIT:
                 is_running = False
 
-        manager.process_events(event)
+            end_manager.process_events(event)
 
-        manager.update(time_delta)
+            end_manager.update(time_delta)
 
         window_surface.blit(background_image, [0, 0])
         window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
         window_surface.blit(yourScore, (275,height/3))
         window_surface.blit(highscore,(475,height/3))
-        manager.draw_ui(window_surface)
+        end_manager.draw_ui(window_surface)
 
         pygame.display.update()

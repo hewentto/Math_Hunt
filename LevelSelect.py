@@ -53,20 +53,20 @@ def levelSelect(window_surface):
                         print('Addition')
                         game.Game(window_surface)
                     if event.ui_element == subtraction_button:
-                        print('Addition')
+                        print('Subtraction')
                     if event.ui_element == multiplication_button:
-                        print('Addition')
+                        print('Multiplication')
                     if event.ui_element == division_button:
-                        print('Addition')
+                        print('Division')
             
 
-        level_manager.process_events(event)
+            level_manager.process_events(event)
 
-        level_manager.update(time_delta)
+            level_manager.update(time_delta)
 
-        window_surface.blit(background_image, [0, 0])
-        window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
-        level_manager.draw_ui(window_surface)
+            window_surface.blit(background_image, [0, 0])
+            window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
+            level_manager.draw_ui(window_surface)
 
         pygame.display.update()
 

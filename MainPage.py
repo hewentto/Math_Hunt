@@ -10,7 +10,7 @@ import LevelSelect
 # Main Menu
 def mainMenu(window_surface):
 
-        # Game Initialization
+    # Game Initialization
     pygame.init()
 
     # Center the Game Application
@@ -69,6 +69,7 @@ def mainMenu(window_surface):
     window_surface.blit(background_image, [0,0])
     window_surface.blit(title, (screen_width/2 - (title_rect[2]/2), 80))
     window_surface.blit(text_start, (screen_width/2 - (start_rect[2]/2), 300))
+
     pygame.display.update()
     clock.tick(FPS)
     pygame.display.set_caption("Python - Pygame Simple Main Menu Selection")
