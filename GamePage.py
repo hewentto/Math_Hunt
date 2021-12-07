@@ -3,6 +3,9 @@ import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
 import equations as dic
+from os import path #helps locate items on the computer
+
+
 def Game(window_surface):
     pygame.init()
 
@@ -26,10 +29,20 @@ def Game(window_surface):
 
     game_manager = pygame_gui.UIManager((width, height))
 
+    def load_data():
+        # load high score
+        dir = path.dirname(__file__) #finds where we are running the program
+        # path.join combines the folder we are in with the highscore file
+        with open(path.join(dir, "highscore.txt"), 'w') as file: # w will write to the file but also create it if it doenst exist
+            try:
+                highscore = int(file.read()) # add the file and convert to a int
+            except: 
+                highscore = 0 
+
     def text_format(message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
         newText = newFont.render(message, 0, textColor)
-
+    
         return newText
     font = "Retro.ttf"
 

@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 from pygame.locals import *
 import GamePage as game
+from os import path
 
 def endScreen(window_surface):
     pygame.init()
@@ -47,7 +48,13 @@ def endScreen(window_surface):
     highscore = text_format("Highscore", font, 40, yellow)
     highscore_rect = yourScore.get_rect()
 
+    score = 0
 
+    def new_highscore():
+        if score > highscore: # if they score better than the highscore
+            highscore = score
+            with open(path.join(dir, "highscore.txt"), 'w') as file: #make the change in the highscore.txt file
+                file.write(str(score))
                                                 
 
     # Background image
