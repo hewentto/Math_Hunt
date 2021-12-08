@@ -34,10 +34,10 @@ def Game(window_surface):
     font = "Retro.ttf"
 
     title = text_format("Score:", font, 50, yellow)
-    problem = text_format("", font, 90, black)
+    displayProblem = text_format("", font, 90, black)
 
     title_rect = title.get_rect()
-    problem_rect = problem.get_rect()
+    problem_rect = displayProblem.get_rect()
 
     main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
 
@@ -73,7 +73,7 @@ def Game(window_surface):
             active_problem = dic.adddict.get(problem)
             
         window_surface.blit(title, (650, 10))
-        window_surface.blit(problem, (300, 500 ))
+        window_surface.blit(displayProblem, (300, 500 ))
         game_manager.draw_ui(window_surface)
 
         pygame.display.update()
