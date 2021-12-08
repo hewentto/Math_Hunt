@@ -3,7 +3,7 @@ import pygame_gui
 from pygame.locals import *
 import GamePage as game
 
-def endScreen(window_surface):
+def endScreen(window_surface, score):
     pygame.init()
 
     width = 900

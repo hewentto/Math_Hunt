@@ -14,7 +14,8 @@ class duck:
     width = 900
     height = 425 
     
-    def __init__(self, equation, screen):
+    def __init__(self, equation, index, screen):
+        self.index = index
         self.equation = equation
         self.screen = screen
         # creates a random position for x and y within the screen range for the object
@@ -40,7 +41,7 @@ class duck:
         self.size = [(pygame.font.SysFont('microsoftjhengheimicrosoftjhengheiuibold', 20).size(self.equation)[0]),
                         (pygame.font.SysFont('microsoftjhengheimicrosoftjhengheiuibold', 20).size(self.equation)[1])]
         self.hitbox = pygame.Rect(
-            self.x, self.y, self.size[0], self.size[1])
+            self.x, self.y, self.x + 50, self.y + 50)
 
     def chooseDirection(self):
         if self.vx < 0:

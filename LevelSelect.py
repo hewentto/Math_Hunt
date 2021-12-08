@@ -1,10 +1,8 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
-import AdditionGamePage as add
-import SubtractionGamePage as sub
-import MultiplicationGamePage as mult
-import DivisionGamePage as div
+import GamePage as game
+import equations as dic
 
 def levelSelect(window_surface):
     pygame.init()
@@ -43,6 +41,9 @@ def levelSelect(window_surface):
     clock = pygame.time.Clock()
     is_running = True
 
+    activeDictionary = dic.adddictanswer
+    activeProblem = dic.adddictprob
+
     while is_running:
         time_delta = clock.tick(60)/1000.0
         for event in pygame.event.get():
@@ -51,17 +52,25 @@ def levelSelect(window_surface):
             if event.type == USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == addition_button:
+                        activeDictionary = dic.adddictanswer
+                        activeProblem = dic.adddictprob
                         print('Addition')
-                        add.Game(window_surface)
+                        game.Game(window_surface, activeDictionary, activeProblem)
                     if event.ui_element == subtraction_button:
+                        activeDictionary = dic.subdictanswer
+                        activeProblem = dic.subdictprob
                         print('Subtraction')
-                        sub.Game(window_surface)
+                        game.Game(window_surface, activeDictionary, activeProblem)
                     if event.ui_element == multiplication_button:
+                        activeDictionary = dic.multdictanswer
+                        activeProblem = dic.multdictprob
                         print('Multiplication')
-                        mult.Game(window_surface)
+                        game.Game(window_surface, activeDictionary, activeProblem)
                     if event.ui_element == division_button:
+                        activeDictionary = dic.divdictanswer
+                        activeProblem = dic.divdictprob
                         print('Division')
-                        div.Game(window_surface)
+                        game.Game(window_surface, activeDictionary, activeProblem)
             
 
             level_manager.process_events(event)

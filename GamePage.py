@@ -4,8 +4,9 @@ from pygame.locals import *
 import duckClass as Duck
 import equations as dic
 import EquationsClass as equ
+import EndScreen as end
 
-def Game(window_surface):
+def Game(window_surface, activeDictionary, activeProblem):
     pygame.init()
     width = 900
     height = 600 
@@ -34,6 +35,10 @@ def Game(window_surface):
         return newText
     font = "Retro.ttf"
 
+    score = 0
+
+    
+
     title = text_format("Score:", font, 50, yellow)
     displayProblem = text_format("", font, 90, black)
 
@@ -48,27 +53,21 @@ def Game(window_surface):
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    addDucks = [Duck.duck(i,window_surface) for i in dic.adddictanswer]
-    addProblems = [equ.DisplayProblem(dic.adddictprob[i], i, window_surface) for i in dic.adddictprob]
+    addDucks = [Duck.duck(i,i, window_surface) for i in activeDictionary]
+    addProblems = [equ.DisplayProblem(activeProblem[i], i, window_surface) for i in activeProblem]
 
     clock = pygame.time.Clock()
     is_running = True
 
-    while is_running:
-        window_surface.blit(background_image, [0, 0])
+    problemsListLength = 20
 
+    while is_running:
+        renderText = pygame.font.SysFont("Retro.ttf", 50).render(str(score), True, yellow)
+        window_surface.blit(background_image, [0, 0])
+        window_surface.blit(title, (650, 10))
+        window_surface.blit(renderText,(800, 20))
 
         time_delta = clock.tick(60)/1000.0
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                is_running = False
-
-        
-            game_manager.process_events(event)
-
-            game_manager.update(time_delta)
-
-
         for k in range(len(addDucks)):
             addDucks[k].draw()
             addDucks[k].mover()
@@ -76,8 +75,32 @@ def Game(window_surface):
         for answer in dic.adddictanswer:
             active_answer = dic.adddictanswer.get(answer)
 
-            
-        window_surface.blit(title, (650, 10))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                is_running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouseLocation = pygame.mouse.get_pos()
+                for k in range(len(addDucks)):
+                    if mouseLocation[0] >= addDucks[k].x and mouseLocation[0] <= addDucks[k].x+100:
+                        if mouseLocation[1] >= addDucks[k].y and mouseLocation[1] <= addDucks[k].y+100:
+                            print("hit")
+                            score += 1
+                            print(score)
+                            problemsListLength += -1
+                            if problemsListLength == 0:
+                                end.endScreen(score, window_surface)
+                            addProblems.pop(0)
+                            
+
+        
+            game_manager.process_events(event)
+
+            game_manager.update(time_delta)
+
+
+
+
+        
         window_surface.blit(displayProblem, (300, 500 ))
         game_manager.draw_ui(window_surface)
 
