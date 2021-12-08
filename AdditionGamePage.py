@@ -3,6 +3,7 @@ import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
 import equations as dic
+import EquationsClass as equ
 
 def Game(window_surface):
     pygame.init()
@@ -48,6 +49,7 @@ def Game(window_surface):
 
     #duck
     addDucks = [Duck.duck(i,window_surface) for i in dic.adddictanswer]
+    addProblems = [equ.DisplayProblem(dic.adddictprob[i], i, window_surface) for i in dic.adddictprob]
 
     clock = pygame.time.Clock()
     is_running = True
@@ -70,6 +72,7 @@ def Game(window_surface):
         for k in range(len(addDucks)):
             addDucks[k].draw()
             addDucks[k].mover()
+            addProblems[0].showProblem()
         for answer in dic.adddictanswer:
             active_answer = dic.adddictanswer.get(answer)
 
