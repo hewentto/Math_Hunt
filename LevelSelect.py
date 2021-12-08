@@ -1,7 +1,10 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
-import GamePage as game
+import AdditionGamePage as add
+import SubtractionGamePage as sub
+import MultiplicationGamePage as mult
+import DivisionGamePage as div
 
 def levelSelect(window_surface):
     pygame.init()
@@ -29,12 +32,10 @@ def levelSelect(window_surface):
     title = text_format("Select Level", font, 90, yellow)
 
     title_rect = title.get_rect()
-    addition_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4), (100, 50)), text='Addition', manager=level_manager)
-    subtraction_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 80), (100, 50)), text='Subtraction', manager=level_manager)
-    multiplication_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 160), (100, 50)), text='Multiplication', manager=level_manager)
-    division_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 240), (100, 50)), text='Division', manager=level_manager)
-
-                                                
+    addition_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4), (125, 50)), text='Addition', manager=level_manager)
+    subtraction_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 80), (125, 50)), text='Subtraction', manager=level_manager)
+    multiplication_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 160), (125, 50)), text='Multiplication', manager=level_manager)
+    division_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/2 - 50, height/4 + 240), (125, 50)), text='Division', manager=level_manager)                     
 
     # Background image
     background_image = pygame.image.load("background.png").convert()
@@ -51,13 +52,16 @@ def levelSelect(window_surface):
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == addition_button:
                         print('Addition')
-                        game.Game(window_surface)
+                        add.Game(window_surface)
                     if event.ui_element == subtraction_button:
                         print('Subtraction')
+                        sub.Game(window_surface)
                     if event.ui_element == multiplication_button:
                         print('Multiplication')
+                        mult.Game(window_surface)
                     if event.ui_element == division_button:
                         print('Division')
+                        div.Game(window_surface)
             
 
             level_manager.process_events(event)
