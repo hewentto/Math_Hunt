@@ -3,9 +3,9 @@ import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
 import equations as dic
+
 def Game(window_surface):
     pygame.init()
-
     width = 900
     height = 600 
 
@@ -41,13 +41,13 @@ def Game(window_surface):
 
     main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
 
-    active_problem = ""
-    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_problem, manager=game_manager) 
+    active_answer = ""
+    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_answer, manager=game_manager) 
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    allDucks = [Duck.duck(i,window_surface) for i in dic.adddict]
+    divDucks = [Duck.duck(i,window_surface) for i in dic.divdictanswer]
 
     clock = pygame.time.Clock()
     is_running = True
@@ -66,11 +66,13 @@ def Game(window_surface):
 
             game_manager.update(time_delta)
 
-        for k in range(len(allDucks)):
-            allDucks[k].draw()
-            allDucks[k].mover()
-        for problem in dic.adddict:
-            active_problem = dic.adddict.get(problem)
+
+        for k in range(len(divDucks)):
+            divDucks[k].draw()
+            divDucks[k].mover()
+        for answer in dic.divdictanswer:
+            active_answer = dic.divdictanswer.get(answer)
+
             
         window_surface.blit(title, (650, 10))
         window_surface.blit(displayProblem, (300, 500 ))
