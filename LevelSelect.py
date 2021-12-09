@@ -4,7 +4,7 @@ from pygame.locals import *
 import AdditionGamePage as add
 import SubtractionGamePage as sub
 import MultiplicationGamePage as mult
-import DivisionGamePage as div
+
 
 def levelSelect(window_surface):
     pygame.init()
