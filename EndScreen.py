@@ -57,8 +57,10 @@ def endScreen(score, window_surface):
 
     newScore = text_format(str(score), font, 50, yellow)
 
-    highscore = text_format("Highscore", font, 40, yellow)
+    highscoreLabel = text_format("Highscore", font, 40, yellow)
     highscore_rect = yourScore.get_rect()
+    
+    highscore = 0
 
     # if score > highscore:
     #     highscore = score
@@ -92,7 +94,7 @@ def endScreen(score, window_surface):
         window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
         window_surface.blit(yourScore, (275,height/3))
         window_surface.blit(newScore, (335, height/2))
-        window_surface.blit(highscore,(475,height/3))
+        window_surface.blit(highscoreLabel,(475,height/3))
         end_manager.draw_ui(window_surface)
 
         pygame.display.update()
