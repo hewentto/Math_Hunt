@@ -51,6 +51,8 @@ def levelSelect(window_surface):
                 is_running = False
             if event.type == USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    navigate = pygame.mixer.Sound('sound/navigating_menu.ogg')
+                    navigate.play()
                     if event.ui_element == addition_button:
                         activeDictionary = dic.adddictanswer
                         activeProblem = dic.adddictprob

@@ -1,13 +1,22 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
+from pygame import mixer
 import duckClass as Duck
 import equations as dic
 import EquationsClass as equ
 import EndScreen as end
+import MainPage as mp
 
 def Game(window_surface, activeDictionary, activeProblem):
     pygame.init()
+
+    pygame.mixer.init()
+
+    pygame.mixer.music.load("sound/gameplay_music.ogg")
+    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play(-1)
+
     width = 900
     height = 600 
 
@@ -45,10 +54,9 @@ def Game(window_surface, activeDictionary, activeProblem):
     title_rect = title.get_rect()
     problem_rect = displayProblem.get_rect()
 
-    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
+    main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager)
 
     active_answer = ""
-    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_answer, manager=game_manager) 
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
@@ -79,6 +87,8 @@ def Game(window_surface, activeDictionary, activeProblem):
             if event.type == pygame.QUIT:
                 is_running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
+                shoot = pygame.mixer.Sound('sound/gun_shot.ogg')
+                shoot.play()
                 mouseLocation = pygame.mouse.get_pos()
                 for k in range(len(addDucks)):
                     if mouseLocation[0] >= addDucks[k].x and mouseLocation[0] <= addDucks[k].x+100:
@@ -90,17 +100,18 @@ def Game(window_surface, activeDictionary, activeProblem):
                             if problemsListLength == 0:
                                 end.endScreen(score, window_surface)
                             addProblems.pop(0)
-                            
+                reload = pygame.mixer.Sound('sound/gun_click.ogg')
+                reload.play()
+            if event.type == USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    navigate = pygame.mixer.Sound('sound/navigating_menu.ogg')
+                    navigate.play()
+                    if event.ui_element == main_menu:
+                        mp.mainMenu(window_surface)
 
-        
             game_manager.process_events(event)
+            game_manager.update(time_delta) 
 
-            game_manager.update(time_delta)
-
-
-
-
-        
         window_surface.blit(displayProblem, (300, 500 ))
         game_manager.draw_ui(window_surface)
 

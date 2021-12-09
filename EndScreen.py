@@ -1,10 +1,19 @@
 import pygame
 import pygame_gui
 from pygame.locals import *
-import GamePage as game
+from pygame import mixer
+import GamePage 
+import LevelSelect as ls
 
 def endScreen(window_surface, score):
     pygame.init()
+
+    pygame.mixer.init()
+
+    pygame.mixer.music.load("sound/level_completed.ogg")
+    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play()
+    
 
     width = 900
     height = 600 
@@ -65,7 +74,12 @@ def endScreen(window_surface, score):
             end_manager.process_events(event)
 
             end_manager.update(time_delta)
-
+            if event.type == USEREVENT:
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        navigate = pygame.mixer.Sound('sound/navigating_menu.ogg')
+                        navigate.play()
+                        if event.ui_element == back_button:
+                            ls.levelSelect(window_surface)
         window_surface.blit(background_image, [0, 0])
         window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
         window_surface.blit(yourScore, (275,height/3))

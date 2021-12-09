@@ -1,6 +1,7 @@
 import pygame, sys
 import pygame_gui
 from pygame.locals import *
+from pygame import mixer
 import duckClass as Duck
 import os
 import LevelSelect
@@ -12,7 +13,11 @@ def mainMenu(window_surface):
 
     # Game Initialization
     pygame.init()
+    pygame.mixer.init()
 
+    pygame.mixer.music.load("sound/math_hunt_title.ogg")
+    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play(-1)
     # Center the Game Application
 
     # Game Resolution
@@ -86,5 +91,7 @@ def mainMenu(window_surface):
                 elif event.key == pygame.K_DOWN:
                     selected="quit"
                 if event.key == pygame.K_RETURN:
+                    navigate = pygame.mixer.Sound('sound/navigating_menu.ogg')
+                    navigate.play()
                     LevelSelect.levelSelect(window_surface)
 #Initialize the Game
