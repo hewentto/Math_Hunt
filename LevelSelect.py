@@ -7,6 +7,12 @@ import equations as dic
 def levelSelect(window_surface):
     pygame.init()
 
+    pygame.mixer.init()
+
+    pygame.mixer.music.load("sound/math_hunt_title.ogg")
+    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play(-1)
+    
     width = 900
     height = 600 
 
