@@ -62,6 +62,10 @@ def endScreen(score, window_surface):
     
     highscore = 0
 
+    if score > highscore:
+        highscore = score
+        newHighscore = text_format(str(score), font, 50, yellow)
+
     # if score > highscore:
     #     highscore = score
     #     with open(path.join(dir, "highscore.txt"), 'w') as file:
@@ -95,6 +99,7 @@ def endScreen(score, window_surface):
         window_surface.blit(yourScore, (275,height/3))
         window_surface.blit(newScore, (335, height/2))
         window_surface.blit(highscoreLabel,(475,height/3))
+        window_surface.blit(newHighscore, (535, height/2))
         end_manager.draw_ui(window_surface)
 
         pygame.display.update()
