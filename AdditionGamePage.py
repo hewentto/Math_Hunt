@@ -3,12 +3,10 @@ import pygame_gui
 from pygame.locals import *
 import duckClass as Duck
 import equations as dic
-from os import path #helps locate items on the computer
-
+import EquationsClass as equ
 
 def Game(window_surface):
     pygame.init()
-
     width = 900
     height = 600 
 
@@ -29,38 +27,29 @@ def Game(window_surface):
 
     game_manager = pygame_gui.UIManager((width, height))
 
-    def load_data():
-        # load high score
-        dir = path.dirname(__file__) #finds where we are running the program
-        # path.join combines the folder we are in with the highscore file
-        with open(path.join(dir, "highscore.txt"), 'w') as file: # w will write to the file but also create it if it doenst exist
-            try:
-                highscore = int(file.read()) # add the file and convert to a int
-            except: 
-                highscore = 0 
-
     def text_format(message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
         newText = newFont.render(message, 0, textColor)
-    
+
         return newText
     font = "Retro.ttf"
 
     title = text_format("Score:", font, 50, yellow)
-    problem = text_format("", font, 90, black)
+    displayProblem = text_format("", font, 90, black)
 
     title_rect = title.get_rect()
-    problem_rect = problem.get_rect()
+    problem_rect = displayProblem.get_rect()
 
     main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager) 
 
-    active_problem = ""
-    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_problem, manager=game_manager) 
+    active_answer = ""
+    question = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text=active_answer, manager=game_manager) 
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    allDucks = [Duck.duck(i,window_surface) for i in dic.adddict]
+    addDucks = [Duck.duck(i,window_surface) for i in dic.adddictanswer]
+    addProblems = [equ.DisplayProblem(dic.adddictprob[i], i, window_surface) for i in dic.adddictprob]
 
     clock = pygame.time.Clock()
     is_running = True
@@ -79,14 +68,17 @@ def Game(window_surface):
 
             game_manager.update(time_delta)
 
-        for k in range(len(allDucks)):
-            allDucks[k].draw()
-            allDucks[k].mover()
-        for problem in dic.adddict:
-            active_problem = dic.adddict.get(problem)
+
+        for k in range(len(addDucks)):
+            addDucks[k].draw()
+            addDucks[k].mover()
+            addProblems[0].showProblem()
+        for answer in dic.adddictanswer:
+            active_answer = dic.adddictanswer.get(answer)
+
             
         window_surface.blit(title, (650, 10))
-        window_surface.blit(problem, (300, 500 ))
+        window_surface.blit(displayProblem, (300, 500 ))
         game_manager.draw_ui(window_surface)
 
         pygame.display.update()
