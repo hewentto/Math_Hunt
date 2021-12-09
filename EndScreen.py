@@ -4,8 +4,10 @@ from pygame.locals import *
 from pygame import mixer
 import GamePage 
 import LevelSelect as ls
+from os import path
 
-def endScreen(window_surface, score):
+
+def endScreen(score, window_surface):
     pygame.init()
 
     pygame.mixer.init()
@@ -53,11 +55,17 @@ def endScreen(window_surface, score):
     yourScore = text_format("Your Score", font, 40, yellow)
     yourScore_rect = yourScore.get_rect()
 
+    newScore = text_format(str(score), font, 50, yellow)
+
     highscore = text_format("Highscore", font, 40, yellow)
     highscore_rect = yourScore.get_rect()
 
+    # if score > highscore:
+    #     highscore = score
+    #     with open(path.join(dir, "highscore.txt"), 'w') as file:
+    #         file.write(str(score))
+    #         print("successfully printed highscore in .txt file")
 
-                                                
 
     # Background image
     background_image = pygame.image.load("background.png").convert()
@@ -83,6 +91,7 @@ def endScreen(window_surface, score):
         window_surface.blit(background_image, [0, 0])
         window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
         window_surface.blit(yourScore, (275,height/3))
+        window_surface.blit(newScore, (335, height/2))
         window_surface.blit(highscore,(475,height/3))
         end_manager.draw_ui(window_surface)
 
