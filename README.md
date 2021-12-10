@@ -4,7 +4,7 @@ In the development of this game we wanted to work with physics and learn how to 
 
 This game is an educational game to help kids to do math. In this game an equation is displayed and you goal is to shoot the correct duck that has the right answer.
 
-[Math Hunt Walkthrough](http://youtube.link.goes.here)
+[Math Hunt Walkthrough](https://youtu.be/2QUhBiO6J0I)
 
 # Development Environment
 
