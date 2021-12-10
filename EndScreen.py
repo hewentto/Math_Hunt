@@ -4,14 +4,15 @@ from pygame.locals import *
 from pygame import mixer
 import GamePage 
 import LevelSelect as ls
+from os import  path
 
-def endScreen(window_surface, score):
+def endScreen(score, window_surface):
     pygame.init()
 
     pygame.mixer.init()
 
     pygame.mixer.music.load("sound/level_completed.ogg")
-    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play()
     
 
@@ -53,8 +54,25 @@ def endScreen(window_surface, score):
     yourScore = text_format("Your Score", font, 40, yellow)
     yourScore_rect = yourScore.get_rect()
 
-    highscore = text_format("Highscore", font, 40, yellow)
+    newScore = text_format(str(score), font, 50, yellow)
+    newHighscore = text_format(str(score), font, 50, yellow)
+
+    highscoreLabel = text_format("Highscore", font, 40, yellow)
     highscore_rect = yourScore.get_rect()
+
+    file = open("highscore.txt", "r")
+
+    highscore = int(file.read())
+
+    file.close()
+
+
+    if score > highscore:
+        file = open("highscore.txt",'w')
+        file.write(str(score))
+        file.close()
+        
+
 
 
                                                 
@@ -83,7 +101,10 @@ def endScreen(window_surface, score):
         window_surface.blit(background_image, [0, 0])
         window_surface.blit(title, (width/2 - (title_rect[2]/2), 50))
         window_surface.blit(yourScore, (275,height/3))
-        window_surface.blit(highscore,(475,height/3))
+        window_surface.blit(newScore, (335, height/2))
+        window_surface.blit(highscoreLabel,(475,height/3))
+        window_surface.blit(newHighscore, (535, height/2))
+
         end_manager.draw_ui(window_surface)
 
         pygame.display.update()

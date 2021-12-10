@@ -10,7 +10,7 @@ def levelSelect(window_surface):
     pygame.mixer.init()
 
     pygame.mixer.music.load("sound/math_hunt_title.ogg")
-    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play(-1)
     
     width = 900

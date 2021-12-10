@@ -14,7 +14,7 @@ def Game(window_surface, activeDictionary, activeProblem):
     pygame.mixer.init()
 
     pygame.mixer.music.load("sound/gameplay_music.ogg")
-    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play(-1)
 
     width = 900
@@ -56,20 +56,23 @@ def Game(window_surface, activeDictionary, activeProblem):
 
     main_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((780, 540), (100, 50)), text='Main Menu', manager=game_manager)
 
-    active_answer = ""
     # Background image
     background_image = pygame.image.load("background.png").convert()
 
     #duck
-    addDucks = [Duck.duck(i,i, window_surface) for i in activeDictionary]
+    addDucks = [Duck.duck(i,activeDictionary[i], window_surface) for i in activeDictionary]
     addProblems = [equ.DisplayProblem(activeProblem[i], i, window_surface) for i in activeProblem]
 
     clock = pygame.time.Clock()
     is_running = True
+    currentProblem = 0
 
-    problemsListLength = 20
-
+    delThis = False
+    
+    problemsListLength = 5
+    reload = pygame.mixer.Sound('sound/gun_click.ogg')
     while is_running:
+        
         renderText = pygame.font.SysFont("Retro.ttf", 50).render(str(score), True, yellow)
         window_surface.blit(background_image, [0, 0])
         window_surface.blit(title, (650, 10))
@@ -79,7 +82,7 @@ def Game(window_surface, activeDictionary, activeProblem):
         for k in range(len(addDucks)):
             addDucks[k].draw()
             addDucks[k].mover()
-            addProblems[0].showProblem()
+            addProblems[currentProblem].showProblem()
         for answer in dic.adddictanswer:
             active_answer = dic.adddictanswer.get(answer)
 
@@ -93,14 +96,22 @@ def Game(window_surface, activeDictionary, activeProblem):
                 for k in range(len(addDucks)):
                     if mouseLocation[0] >= addDucks[k].x and mouseLocation[0] <= addDucks[k].x+100:
                         if mouseLocation[1] >= addDucks[k].y and mouseLocation[1] <= addDucks[k].y+100:
-                            print("hit")
-                            score += 1
-                            print(score)
+                            if addDucks[k].index == addProblems[currentProblem].index:
+                                print(addDucks[k].index)
+                                print(addProblems[k].index)
+
+                                indexToDelete = k
+                                delThis = True
+                                score += 1
+
+                                
+
+                                print('--------')
                             problemsListLength += -1
                             if problemsListLength == 0:
                                 end.endScreen(score, window_surface)
-                            addProblems.pop(0)
-                reload = pygame.mixer.Sound('sound/gun_click.ogg')
+                            currentProblem += 1
+                            
                 reload.play()
             if event.type == USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -108,6 +119,9 @@ def Game(window_surface, activeDictionary, activeProblem):
                     navigate.play()
                     if event.ui_element == main_menu:
                         mp.mainMenu(window_surface)
+            if delThis:
+                del addDucks[indexToDelete]
+                delThis = False
 
             game_manager.process_events(event)
             game_manager.update(time_delta) 
