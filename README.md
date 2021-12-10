@@ -13,7 +13,6 @@ This game is an educational game to help kids to do math. In this game an equati
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [Pygame Documentation](https://www.pygame.org/docs/)
 
 # Future Work
